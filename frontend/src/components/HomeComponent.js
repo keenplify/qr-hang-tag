@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Button, Alert } from 'react-bootstrap';
 import styled, { keyframes } from 'styled-components';
 import Popup from 'reactjs-popup';
 
-import Register from './AccountRegisterComponent'
+import Login from './AccountLoginComponent';
+import Register from './AccountRegisterComponent';
 import ForgotPassword from './ForgotPasswordComponent';
 
 const Golden = styled.h1`
@@ -50,12 +51,6 @@ const CustomPopup = styled(Popup)`
 `;
 
 class HomeComponent extends Component {
-    componentDidMount() {
-        var input = document.getElementById('email');
-        input.focus();
-        input.select();
-    }
-
     render() {
         return(
         <Container>
@@ -71,17 +66,7 @@ class HomeComponent extends Component {
                         Save hang tags, earn discount on your next purchase!
                     </Golden>
                     <p>Track your purchase on this brand using the QR at your hang tags</p>
-                    <div className="Spacer5"/>
-                    <Form>
-                        <Form.Group>
-                            <Form.Control type="text" name="email" id="email" placeholder="Email Address or Username" className="NinetyWidth"/>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Control type="password" name="password" id="password" placeholder="Password" className="NinetyWidth"/>
-                        </Form.Group>
-
-                        <Button variant="primary" type="submit" className="px-5 w-100">Login</Button>
-                    </Form>
+                    <Login />
                     <Row>
                         <Col md="7">
                             <CustomPopup trigger={<Button className="w-100 mt-3" variant="outline-info">Forgot your password</Button>} modal>
@@ -99,7 +84,7 @@ class HomeComponent extends Component {
             <Row>
                 <Col>
                     <Alert variant="info" className="my-5">
-                        Developer mode enabled! Please use username:<b> testadmin </b>password:<b>  password </b>as a test account!
+                        Developer mode enabled! Please use username:<b> testadmin </b>password:<b>  testadmin </b>as a test account!
                     </Alert>
                 </Col>
             </Row>
