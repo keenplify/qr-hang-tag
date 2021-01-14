@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const mongoose = require('mongoose')
 const cors = require('cors');
+const BearerStrategy = require('passport-http-bearer');
 
 require('dotenv').config();
 
@@ -22,9 +23,23 @@ app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+let User = require('./models/user.model');
+
+passport.use(new BearerStrategy(
+    function(token, done) {
+      User.findOne({ token: token }, function (err, user) {
+        if (err) { return done(err); }
+        if (!user) { return done(null, false); }
+        return done(null, user, { scope: 'all' });
+      });
+    }
+  ));
+
 const authRouter = require('./routes/auth');
+const hangtagsRouter = require('./routes/hangtags');
 
 app.use('/auth', authRouter);
+app.use('/hangtags', hangtagsRouter);
  
 app.listen(5000, () => {
     console.log("Listening at port 5000")

@@ -55,9 +55,10 @@ class AccountRegisterComponent extends Component {
     }
 
     onChangeGender(e) {
+        console.log(this.state.gender)
         console.log(e)
         this.setState({
-            gender: e.target.value
+            gender: e.target.id.split("-")[1]
         })
     }
 
@@ -71,7 +72,7 @@ class AccountRegisterComponent extends Component {
         e.preventDefault();
 
         Axios.post(process.env.REACT_APP_BACKEND_SERVER + '/auth/register', this.state)
-        .then(res => console.log(res))
+        .then(res => document.location = '/')
     }
 
     render() {
@@ -108,10 +109,10 @@ class AccountRegisterComponent extends Component {
                         <Form.Label>Gender:</Form.Label>
                     </Col>
                     <Col xs="auto">
-                        <Form.Check type="radio" name="gender" id="gender-male" checked={(this.state.birthday==='male') ? true:false} onChange={this.onChangeGender} label="Male" required/>
+                        <Form.Check type="radio" name="gender" id="gender-male" checked={(this.state.gender==='male') ? true:false} onChange={this.onChangeGender} label="Male" required/>
                     </Col>
                     <Col xs="auto">
-                        <Form.Check type="radio" name="gender" id="gender-female" checked={(this.state.birthday==='female') ? true:false} onChange={this.onChangeGender} label="Female"/>
+                        <Form.Check type="radio" name="gender" id="gender-female" checked={(this.state.gender==='female') ? true:false} onChange={this.onChangeGender} label="Female"/>
                     </Col>
                 </Form.Group>
                 

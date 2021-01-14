@@ -29,6 +29,25 @@ code {
   font-weight: 700;
 }
 
+.golden {
+  font-weight: 700;
+  font-family: Calibre, Helvetica Neue, Segoe UI, Helvetica, Arial, Lucida Grande, sans-serif;
+  background: -webkit-linear-gradient(45deg, #fc00ff, #00dbde);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.jumbotron {
+  min-height: 20rem;
+}
+.carousel-control-prev-icon, .carousel-control-next-icon  {
+  filter: invert(19%) sepia(51%) saturate(6269%) hue-rotate(296deg) brightness(118%) contrast(126%);
+}
+
+.sidenav {
+  width: 20vw !important
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     background: #16222A;  /* fallback for old browsers */
@@ -36,7 +55,11 @@ code {
     background: linear-gradient(to right, #3A6073, #16222A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
 
-  p, div {
+  .container p, .container div, .container p, .container, .col, .table td, .jumbotron, .jumbotron * {
     color: white
+  }
+
+  .carousel, .carousel *, .alert, .list-group  {
+    color: black !important
   }
 }

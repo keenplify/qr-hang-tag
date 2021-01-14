@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
+const usernamegenerator = require('generate-username-from-email')
 require('mongoose-type-email');
 
 const Schema = mongoose.Schema;
@@ -16,7 +17,8 @@ const userSchema = new Schema({
     },
     email: {
         type: mongoose.SchemaTypes.Email,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -39,25 +41,38 @@ const userSchema = new Schema({
     },
     username: {
         type: String,
-        unique: true,
         trim: true,
         minlength: 3
+    },
+    ownedHangTags: {
+        type: Array
+    },
+    discountValueWallet: {
+        type: Number,
+        default: 0
+    },
+    discountPercentageWallet: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: true
 })
 
 userSchema.pre('save', function(next) {
-    //GENERATE SALT & BCRPYT PASSWORD
-    bcrypt.genSalt(8)
-    .then(salt => {
-        bcrypt.hash(this.password, salt)
-        .then(hash => {
-            this.password = hash;
-            this.token = crypto.randomBytes(64).toString('hex')
-            next();
+    if (this.isNew) {
+        //GENERATE SALT & BCRPYT PASSWORD
+        bcrypt.genSalt(8)
+        .then(salt => {
+            bcrypt.hash(this.password, salt)
+            .then(hash => {
+                this.password = hash;
+                this.token = crypto.randomBytes(64).toString('hex')
+                this.username = usernamegenerator(this.email).toLowerCase()
+                next();
+            })
         })
-    })
+    } else next();
 });
 
 const User = mongoose.model('User', userSchema)

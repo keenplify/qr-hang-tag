@@ -15,8 +15,11 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "generate-username-from-email": "^1.0.2",
     "mongoose": "^5.11.11",
     "mongoose-type-email": "^1.1.2",
-    "passport": "^0.4.1"
+    "passport": "^0.4.1",
+    "passport-http-bearer": "^1.0.1",
+    "react-qr-scanner": "^0.0.11"
   }
 }
